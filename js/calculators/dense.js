@@ -266,9 +266,9 @@ function calculateDensePrice() {
                 let gridHtml = '';
                 if (g.best.mix) {
                     const b = g.best; let pctX = (val) => (val / b.w) * 100; let pctY = (val) => (val / b.h) * 100; let gridContent = '';
-                    const addCells = (cx, cy, w, h, ox, oy) => { for (let yi = 0; yi < cy; yi++) { for (let xi = 0; xi < cx; xi++) { gridContent += `<div class="card-cell" style="position:absolute; left:${pctX(ox + xi * w)}%; top:${pctY(oy + yi * h)}%; width:${pctX(w)}%; height:${pctY(h)}%; border-radius: 4px; box-shadow: inset 0 0 0 1px #444;"></div>`; } } };
+                    const addCells = (cx, cy, w, h, ox, oy) => { for (let yi = 0; yi < cy; yi++) { for (let xi = 0; xi < cx; xi++) { gridContent += `<div class="card-cell" style="position:absolute; left:${pctX(ox + xi * w)}%; top:${pctY(oy + yi * h)}%; width:${pctX(w)}%; height:${pctY(h)}%; border-radius: 2px; border: 1px dashed #64748b; background: #ffffff;"></div>`; } } };
                     addCells(b.nx, b.ny, b.w1, b.h1, 0, 0); if (b.remType === 'right') addCells(b.rx, b.ry, b.w2, b.h2, b.nx * b.w1, 0); if (b.remType === 'bottom') addCells(b.bx, b.by, b.w2, b.h2, 0, b.ny * b.h1);
-                    gridHtml = `<div class="nv-layout-grid" style="width: 100%; height: 100%; position: relative; background: var(--nv-yellow); padding: 0;">${gridContent}</div>`;
+                    gridHtml = `<div class="nv-layout-grid" style="width: 100%; height: 100%; position: relative; background: #cbd5e1; padding: 0;">${gridContent}</div>`;
                 } else {
                     let displayX = g.best.x || 1; let displayY = g.best.y || 1; let gridWidth = ((displayX * (g.best.w1) / (g.best.w || 1)) * 100); let gridHeight = ((displayY * (g.best.h1) / (g.best.h || 1)) * 100);
                     gridHtml = `<div class="nv-layout-grid" style="width: ${gridWidth}%; height: ${gridHeight}%; grid-template-columns: repeat(${displayX}, 1fr);">${Array(Math.min(g.best.total || 0, 150)).fill('<div class="card-cell"></div>').join('')}</div>`;

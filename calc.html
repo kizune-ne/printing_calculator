@@ -481,20 +481,21 @@
         }
 
         .nv-sheet-area {
-            background: #fff;
-            border: 1px solid #000;
+            background: #ffffff;
+            border: 2px solid #000000;
             position: relative;
             display: block;
             transition: 0.3s;
             margin: 0 auto;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         .nv-layout-grid {
             display: grid;
-            gap: 1px;
-            background: var(--nv-yellow);
-            padding: 1px;
+            gap: 2px;
+            background: #cbd5e1;
+            padding: 2px;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -502,7 +503,9 @@
         }
 
         .card-cell {
-            background: #000;
+            background: #ffffff;
+            border: 1px dashed #64748b;
+            box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
         }
 
         .nv-card-grid-txt {
@@ -2314,9 +2317,9 @@
                 let gridHtml = '';
                 if (g.best.mix) {
                     const b = g.best; let pctX = (val) => (val / b.w) * 100; let pctY = (val) => (val / b.h) * 100; let gridContent = '';
-                    const addCells = (cx, cy, w, h, ox, oy) => { for (let yi = 0; yi < cy; yi++) { for (let xi = 0; xi < cx; xi++) { gridContent += `<div class="card-cell" style="position:absolute; left:${pctX(ox + xi * w)}%; top:${pctY(oy + yi * h)}%; width:${pctX(w)}%; height:${pctY(h)}%; border-radius: 4px; box-shadow: inset 0 0 0 1px #444;"></div>`; } } };
+                    const addCells = (cx, cy, w, h, ox, oy) => { for (let yi = 0; yi < cy; yi++) { for (let xi = 0; xi < cx; xi++) { gridContent += `<div class="card-cell" style="position:absolute; left:${pctX(ox + xi * w)}%; top:${pctY(oy + yi * h)}%; width:${pctX(w)}%; height:${pctY(h)}%; border-radius: 2px; border: 1px dashed #64748b; background: #ffffff;"></div>`; } } };
                     addCells(b.nx, b.ny, b.w1, b.h1, 0, 0); if (b.remType === 'right') addCells(b.rx, b.ry, b.w2, b.h2, b.nx * b.w1, 0); if (b.remType === 'bottom') addCells(b.bx, b.by, b.w2, b.h2, 0, b.ny * b.h1);
-                    gridHtml = `<div class="nv-layout-grid" style="width: 100%; height: 100%; position: relative; background: var(--nv-yellow); padding: 0;">${gridContent}</div>`;
+                    gridHtml = `<div class="nv-layout-grid" style="width: 100%; height: 100%; position: relative; background: #cbd5e1; padding: 0;">${gridContent}</div>`;
                 } else {
                     let displayX = g.best.x || 1; let displayY = g.best.y || 1; let gridWidth = ((displayX * (g.best.w1) / (g.best.w || 1)) * 100); let gridHeight = ((displayY * (g.best.h1) / (g.best.h || 1)) * 100);
                     gridHtml = `<div class="nv-layout-grid" style="width: ${gridWidth}%; height: ${gridHeight}%; grid-template-columns: repeat(${displayX}, 1fr);">${Array(Math.min(g.best.total || 0, 150)).fill('<div class="card-cell"></div>').join('')}</div>`;
@@ -2567,9 +2570,9 @@
             }
 
             const sheetWrapper = document.getElementById('stickSheetWrapper'); let scaleP = Math.min(240 / (resP.w || 1), 240 / (resP.h || 1)); let scaleL = Math.min(240 / (resL.w || 1), 240 / (resL.h || 1));
-            let gridHTML_P = Array(resP.count).fill('<div class="card-cell" style="border-radius:1px; background: #000;"></div>').join('');
-            let gridHTML_L = Array(resL.count).fill('<div class="card-cell" style="border-radius:1px; background: #000;"></div>').join('');
-            sheetWrapper.innerHTML = `<div class="nv-layout-tabs"><button class="nv-layout-tab stick-layout-tab ${window.stickActiveOrientation === 'portrait' ? 'active' : ''}" onclick="window.stickActiveOrientation='portrait'; calculateStickerPrice()">Книжный лист</button><button class="nv-layout-tab stick-layout-tab ${window.stickActiveOrientation === 'landscape' ? 'active' : ''}" onclick="window.stickActiveOrientation='landscape'; calculateStickerPrice()">Альбомный лист</button></div><div id="stick-layout-0" class="nv-layout-content stick-layout-content ${window.stickActiveOrientation === 'portrait' ? 'active' : ''}"><div class="nv-sheet-area" style="width: ${(resP.w || 1) * scaleP}px; height: ${(resP.h || 1) * scaleP}px; display:block; padding: 2px; box-sizing: border-box; background: var(--nv-yellow); border: none;"><div class="nv-layout-grid" style="width: 100%; height: 100%; grid-template-columns: repeat(${resP.x || 1}, 1fr); gap:2px; position: relative; top: 0; left: 0; transform: none;">${gridHTML_P}</div><div class="nv-card-grid-txt label-x">${resP.w || ''} мм</div><div class="nv-card-grid-txt label-y">${resP.h || ''} мм</div></div></div><div id="stick-layout-1" class="nv-layout-content stick-layout-content ${window.stickActiveOrientation === 'landscape' ? 'active' : ''}"><div class="nv-sheet-area" style="width: ${(resL.w || 1) * scaleL}px; height: ${(resL.h || 1) * scaleL}px; display:block; padding: 2px; box-sizing: border-box; background: var(--nv-yellow); border: none;"><div class="nv-layout-grid" style="width: 100%; height: 100%; grid-template-columns: repeat(${resL.x || 1}, 1fr); gap:2px; position: relative; top: 0; left: 0; transform: none;">${gridHTML_L}</div><div class="nv-card-grid-txt label-x">${resL.w || ''} мм</div><div class="nv-card-grid-txt label-y">${resL.h || ''} мм</div></div></div>`;
+            let gridHTML_P = Array(resP.count).fill('<div class="card-cell" style="border-radius:1px; background: #ffffff; border: 1px dashed #64748b;"></div>').join('');
+            let gridHTML_L = Array(resL.count).fill('<div class="card-cell" style="border-radius:1px; background: #ffffff; border: 1px dashed #64748b;"></div>').join('');
+            sheetWrapper.innerHTML = `<div class="nv-layout-tabs"><button class="nv-layout-tab stick-layout-tab ${window.stickActiveOrientation === 'portrait' ? 'active' : ''}" onclick="window.stickActiveOrientation='portrait'; calculateStickerPrice()">Книжный лист</button><button class="nv-layout-tab stick-layout-tab ${window.stickActiveOrientation === 'landscape' ? 'active' : ''}" onclick="window.stickActiveOrientation='landscape'; calculateStickerPrice()">Альбомный лист</button></div><div id="stick-layout-0" class="nv-layout-content stick-layout-content ${window.stickActiveOrientation === 'portrait' ? 'active' : ''}"><div class="nv-sheet-area" style="width: ${(resP.w || 1) * scaleP}px; height: ${(resP.h || 1) * scaleP}px; display:block; padding: 2px; box-sizing: border-box; background: #ffffff; border: 1.5px solid #000;"><div class="nv-layout-grid" style="width: 100%; height: 100%; grid-template-columns: repeat(${resP.x || 1}, 1fr); gap:2px; position: relative; top: 0; left: 0; transform: none; background: #cbd5e1;">${gridHTML_P}</div><div class="nv-card-grid-txt label-x">${resP.w || ''} мм</div><div class="nv-card-grid-txt label-y">${resP.h || ''} мм</div></div></div><div id="stick-layout-1" class="nv-layout-content stick-layout-content ${window.stickActiveOrientation === 'landscape' ? 'active' : ''}"><div class="nv-sheet-area" style="width: ${(resL.w || 1) * scaleL}px; height: ${(resL.h || 1) * scaleL}px; display:block; padding: 2px; box-sizing: border-box; background: #ffffff; border: 1.5px solid #000;"><div class="nv-layout-grid" style="width: 100%; height: 100%; grid-template-columns: repeat(${resL.x || 1}, 1fr); gap:2px; position: relative; top: 0; left: 0; transform: none; background: #cbd5e1;">${gridHTML_L}</div><div class="nv-card-grid-txt label-x">${resL.w || ''} мм</div><div class="nv-card-grid-txt label-y">${resL.h || ''} мм</div></div></div>`;
 
             document.getElementById('stickLayoutDetails').innerHTML = `Листов (${sProps.w}×${sProps.h}): <strong>${sheets} шт.</strong> | На листе: <strong>${best.count} шт.</strong><br><span style="color:#888; font-size:11px">Макет с дозаливками: ${techW}x${techH} мм | Рядов: ${best.x || 0}x${best.y || 0} | Резов: ${useManualCuts || isCut ? totalCuts : 0}</span>`;
             document.getElementById('stickOrientationLabel').textContent = "Раскладка: " + best.name; document.getElementById('stickTotalPrice').textContent = finalTotalCost.toFixed(2);
